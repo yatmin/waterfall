@@ -19,7 +19,7 @@ window.onload = function() {
 	var iLen = aLi.length;
 	var iPage = 1;
 	var b = true;
-	var data=JSON.parse(data);
+	var data;
 	
 	//初始化数据处理
 	getList();
@@ -27,7 +27,7 @@ window.onload = function() {
 	function getList() {
 		ajax('get','getPics.php','cpage=' + iPage,function(data) {
 		
-			/*var data = JSON.parse(data);*/
+			var data = JSON.parse(data);
 			
 			if ( !data.length ) {
 				//后续没有数据了
