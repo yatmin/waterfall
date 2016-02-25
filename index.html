@@ -40,13 +40,10 @@ window.onload = function() {
 				
 				var oDiv = document.createElement('div');
 				var oImg = document.createElement('img');
-				oImg.src = data[i].preview;
+				oImg.src = data[i].image;
 				oImg.style.width = '225px';
 				oImg.style.height =  data[i].height * ( 225 / data[i].width ) + 'px';
 				oDiv.appendChild( oImg );
-				var oP = document.createElement('p');
-				oP.innerHTML = data[i].title;
-				oDiv.appendChild( oP );
 				
 				aLi[_index].appendChild( oDiv );
 				
