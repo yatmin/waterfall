@@ -1,32 +1,40 @@
-function ajax(method, url, data, success) {
-	var xhr = null;
-	try {
-		xhr = new XMLHttpRequest();
-	} catch (e) {
-		xhr = new ActiveXObject('Microsoft.XMLHTTP');
-	}
-	
-	if (method == 'get' && data) {
-		url += '?' + data;
-	}
-	
-	xhr.open(method,url,true);
-	if (method == 'get') {
-		xhr.send();
-	} else {
-		xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
-		xhr.send(data);
-	}
-	
-	xhr.onreadystatechange = function() {
-		
-		if ( xhr.readyState == 4 ) {
-			if ( xhr.status == 200 ) {
-				success && success(xhr.responseText);
-			} else {
-				alert('出错了,Err：' + xhr.status);
-			}
+function ajax(url, fnSucc, fnFaild)
+{
+	//1。创建ajax对象
+		if(window.XMLHttpRequest)
+		{
+			var oAjax=new XMLHttpRequest();
 		}
+		else
+		{
+			var oAjax=new ActiveXObject("Microsoft.XMLHTTP");
+		};
 		
-	}
-}
+
+		//2.连接服务器
+		//Ajax.open(方法，文件名，异步传输)
+		oAjax.open('GET', url, true)
+	
+		//3发送请求
+		oAjax.send();
+		//4接收返回
+		oAjax.onreadystatechange=function()
+		{
+			//oAjax.readyState    //浏览器与服务器，进行到哪一步了
+			if(oAjax.readyState==4)  //读取完成
+			{
+				if(oAjax.status==200)  //成功
+				{
+					fnSucc(oAjax.responseText)
+				}
+				else
+				{
+					if(fnFaild)
+					{
+						fnFaild(oAjax.status)
+					}
+				}
+			}
+			
+		};
+};
